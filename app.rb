@@ -27,7 +27,7 @@ Hour mark, play a game (OUR OWN TERM APPS)
 Symptom checker for the Vid.
     - runs through symptoms list, answer each y/n
 Flirting men for the el oh els. Pickup line generator/positive reinforcement ~~ PERSONALITY DEPENDENT ~~
-    - Randomised se
+    - Randomised sexy pickup line
 =end
 
 
