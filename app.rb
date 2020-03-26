@@ -3,12 +3,13 @@ require "tty-prompt"
 require "timers"
 timers = Timers::Group.new
 
-=begin========== TIME PERMITTING ===============
+=begin
+================ TIME PERMITTING ===============
 Add our term apps as ruby gems.
 Implement graphics
 ================================================
-=end
-=begin Cutie-pie, Relaxed, Stern ~~ Variables for each. Potentially we could create A personality/partner Class and create 3 instances of that.
+
+Cutie-pie, Relaxed, Stern ~~ Variables for each. Potentially we could create A personality/partner Class and create 3 instances of that.
 Get name from User.
 Choose a personality type
 Greeting screen/Intro to program "Hey lover type something"
@@ -30,6 +31,41 @@ Flirting men for the el oh els. Pickup line generator/positive reinforcement ~~ 
     - Randomised sexy pickup line
 =end
 
+class Personality
+    attr_accessor :flirt, :prompt, :reply, :take_break
+
+    def initialize(flirt, prompt, reply, take_break, symptom)
+        @flirt = flirt
+        @prompt = prompt
+        @reply = reply
+        @take_break = take_break
+    end
+
+    def flirt()
+       puts @flirt[rand(3)]
+    end
+
+    def stretch()
+        # Run through routine
+        # Suggest stretch countdown timer start -> ask if they've done it y/n -> move to next stretch rinse repeat
+    end
 
 
+end
+
+cutesy = Personality.new(
+        ["HEHE, your eyes are like boba tea!", "Daww hun, you're doing GWATE!", "UwU, you so cute, I wanna boop your shnoz"], 
+        {
+            :frequently => "Hey bb, how frequently do you want me to remind you of this?",
+            :water => "Drink some water to keep your cheeks plush and red!",
+            :symptoms => ["Hey cutie-pie, do you have a dry cough :*(", "Do you maybe have a lil bit fever?"]
+        },
+        
+    )
+
+stern = Personality.new("Get back to work", "Please work harder", "Get covid-19 already")
+
+relaxed = Personality.new([],)
+
+relaxed.flirt()
 
