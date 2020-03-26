@@ -1,11 +1,17 @@
 #gems
-
+# require "pokemon.rb"
 require "tty-box"
 require "tty-prompt"
 
 # require 'pastel'
 # require 'colorize'
 # require 'colorized_string'
+
+# Games
+
+require_relative "./kahoot.rb"
+require_relative "./qanda.rb"
+# require_relative "./pokemon.rb"
 
 # Personality hashes
 
@@ -94,16 +100,20 @@ def welcome_message()
     puts "And to stretch those slowly decaying humanoid muscles"
     sleep(6)
     system "clear"
-    puts "Karona can also check your symptoms for COVID-19 and play games with you"
+    puts "Karona can also check your symptoms for COVID-19"
+    sleep(5)
+    system "clear"
+    puts "Karon can even play games with you! Like Pokemon and Kahoot!"
     sleep(5)
     system "clear"
     puts "And best of all...."
-    sleep(4)
+    sleep(3)
     system "clear"
-    puts "Karona will flirt with you, during the long lonely nights."
+    puts "Karona is here to flirt with you, during those cold long lonely nights."
     sleep(5)
     system "clear"
     puts "Anything is possible when you have Karona!"
+    sleep(3)
     system "clear"
 end
 
@@ -136,16 +146,21 @@ end
 
 # Main Menu 
 def main_menu()
+system "clear"
 prompt = TTY::Prompt.new 
 menu_choice = prompt.select("What would you like to do", ["Focus on work", "Check Symptoms", "Flirt", "Play a game", "Exit"])
     if menu_choice =="Focus on work"
         focus_on_work()
     elsif menu_choice == "Check Symptoms"
-        return 
+        check_symptoms() 
     elsif menu_choice == "Flirt"
-        return $selected_personality[:flirt][rand(3)]
+        puts $selected_personality[:flirt][rand(3)]
+        sleep(3)
+        main_menu()
     elsif menu_choice == "Play a game"
-        return 
+        # game_choice()
+        kahoot_game()
+        main_menu()
     elsif menu_choice == "Exit"
         puts "clear"
         puts " Good-bye my lover, good-bye my friend"
@@ -161,7 +176,13 @@ def focus_on_work
     system "clear"
     # Add sound?
     puts $selected_personality[:water]
-    sleep(5)
+    puts "Press the enter key to continue working"
+    while STDIN.getch != "\r"
+        if pause == true
+            puts "Press the 'enter' key to continue"
+        end
+        pause = !pause
+        end
     system "clear"
     love_heart()
     # Waits 10 mins then reminds the user to stretch
@@ -169,6 +190,13 @@ def focus_on_work
     system "clear"
     # Add sound?
     puts $selected_personality[:stretch]
+    puts "Press the enter key to continue working"
+    while STDIN.getch != "\r"
+        if pause == true
+            puts "Press the 'enter' key to continue"
+        end
+        pause = !pause
+        end
     sleep(5)
     system "clear"
     love_heart()
@@ -177,6 +205,13 @@ def focus_on_work
     system "clear"
     # Add sound?
     puts $selected_personality[:water]
+    puts "Press the enter key to continue working"
+    while STDIN.getch != "\r"
+        if pause == true
+            puts "Press the 'enter' key to continue"
+        end
+        pause = !pause
+        end
     sleep(5)
     system "clear"
     # Waits 20 mins then returns to main menu for a break
@@ -196,17 +231,31 @@ def check_symptoms
     else
         puts "Please answer yes or no... It's a simple question"
     end
+    sleep(3)
+    main_menu()
 end
+
+# def game_choice()
+#     prompt = TTY::Prompt.new 
+#     game_choice = prompt.select("What game would you like to play?", ["Kahoot", "Pokemon",])
+#         if game_choice == "Kahoot"
+#             kahoot_game()
+#         elsif game_choice == "Pokemon"
+#             pokemon_game()
+#         else
+#         end
+#     main_menu()
+# end
+
+
+
 
 system "clear"
 
 # welcome_message()
 
-# user_name()
+user_name()
 
 personality_choices()
 
-# main_menu()
-
-# focus_on_work()
-
+main_menu()
