@@ -3,33 +3,37 @@
 require "tty-box"
 require "tty-prompt"
 
+# require 'pastel'
+# require 'colorize'
+# require 'colorized_string'
+
 # Personality hashes
 
-$cutesy = {
-    :selected => "*bats eyelids* you're too kind to me",
-    :flirt => ["HEHE, your eyes are like boba tea!", "Daww hun, you're doing GWATE!", "UwU, you so cute, I wanna boop your shnoz"],
-    :frequently => "Hey bb, how frequently do you want me to remind you of this?",
-    :water => "Drink some water to keep your cheeks plush and red!",
-    :symptom => ["Hey cutie-pie, do you have a dry cough :*(", "Do you maybe have a lil bit fever?", "Muffin, remember a sore through may mean you have the Wuhan Sniffles"],
-    :stretch => "Gotta keep those armsies and legsies limber, keep that back limber for the pikachu dance routine we're doing after work!"
-}
-
-$stern = {
-    :selected => "Good. Why would you want any of those other hussies",
-    :flirt => ["Get back to work", "Please work harder", "Get covid-19 already"],
-    :frequently => "The frequency of which I need to remind you should be HIGH, make it high, or else.",
-    :water => "You better drink some water or I will make water flow from your eyes",
-    :symptom => ["That sounded like a cough? Was that a cough?", "I see you sweating (◔_◔) - do you have a fever?", "Remember, a sore throat could mean you've got the WuFlu"],
-    :stretch => "Stretch now, do it now, not later, STRETCH NOW, or you're cut off."
-}
-
-$relaxed = {
-    :selected => "Thanks! But it was totally cool if you chose one of the others",
-    :flirt => ["Hey bb you make me want to stay in bed all day", "Those trackies are pretty sweet lookin' on you.", "I'm a fan of lying in bed next to you."],
-    :frequently => "How often do you want me to remind you? Just don't make it too often.",
-    :water => "Hydrations cool, would reccomend, but it's your life.",
-    :symptom => ["Hey like, do you reckon you have a dry cough or whatever?", "Not that it really matters but, if you've got a fever, speak up", "Man, sometimes my throat is a bit sore. Is yours?"],
-    :stretch => "Hey like, maybe if you wanted to, like... Probably do some stretches hey."
+$personality_hashes = {
+    "cutesy" => {
+        :selected => "*bats eyelids* you're too kind to me",
+        :flirt => ["HEHE, your eyes are like boba tea!", "Daww hun, you're doing GWATE!", "UwU, you so cute, I wanna boop your shnoz"],
+        :frequently => "Hey bb, how frequently do you want me to remind you of this?",
+        :water => "Drink some water to keep your cheeks plush and red!",
+        :symptom => ["Hey cutie-pie, do you have a dry cough :*(", "Do you maybe have a lil bit fever?", "Muffin, remember a sore through may mean you have the Wuhan Sniffles"],
+        :stretch => "Gotta keep those armsies and legsies limber, keep that back limber for the pikachu dance routine we're doing after work!"
+    },
+    "stern" => {
+        :selected => "Good. Why would you want any of those other hussies",
+        :flirt => ["Get back to work", "Please work harder", "Get covid-19 already"],
+        :frequently => "The frequency of which I need to remind you should be HIGH, make it high, or else.",
+        :water => "You better drink some water or I will make water flow from your eyes",
+        :symptom => ["That sounded like a cough? Was that a cough?", "I see you sweating (◔_◔) - do you have a fever?", "Remember, a sore throat could mean you've got the WuFlu"],
+        :stretch => "Stretch now, do it now, not later, STRETCH NOW, or you're cut off."
+    },
+    "relaxed" => {
+        :selected => "Thanks! But it was totally cool if you chose one of the others",
+        :flirt => ["Hey bb you make me want to stay in bed all day", "Those trackies are pretty sweet lookin' on you.", "I'm a fan of lying in bed next to you."],
+        :frequently => "How often do you want me to remind you? Just don't make it too often.",
+        :water => "Hydrations cool, would reccomend, but it's your life.",
+        :symptom => ["Hey like, do you reckon you have a dry cough or whatever?", "Not that it really matters but, if you've got a fever, speak up", "Man, sometimes my throat is a bit sore. Is yours?"],
+        :stretch => "Hey like, maybe if you wanted to, like... Probably do some stretches hey."
+    }
 }
 
 
@@ -84,7 +88,7 @@ def welcome_message()
     puts "Karona can keep you on task by reminding you to..."
     sleep(5)
     system "clear"
-    puts "Drink water, take a break and stretch those humanoid decaying muscles"
+    puts "Drink water, stretch and take a break"
     sleep(5)
     system "clear"
     puts "And to stretch those slowly decaying humanoid muscles"
@@ -120,15 +124,13 @@ def personality_choices()
 prompt = TTY::Prompt.new 
 personality_picker = prompt.select("Please pick a personality type for Karona", ["Stern", "Cutesy-Pie", "Relaxed"])
     if personality_picker == "Stern"
-        $selected = "stern"
-        return $stern[:selected]
+        $selected_personality = $personality_hashes["stern"]
     elsif personality_picker == "Cutesy-Pie"
-        $selected = "cutesy"
-        return $cutesy[:selected]
+        $selected_personality = $personality_hashes["cutesy"]
     elsif personality_picker == "Relaxed"
-        $selected = "relaxed"
-        return $relaxed[:selected]
+        $selected_personality = $personality_hashes["relaxed"]
     end
+    puts $selected_personality[:selected]
     main_menu()
 end
 
@@ -141,7 +143,7 @@ menu_choice = prompt.select("What would you like to do", ["Focus on work", "Chec
     elsif menu_choice == "Check Symptoms"
         return 
     elsif menu_choice == "Flirt"
-        return $selected[:flirt][rand(3)]
+        return $selected_personality[:flirt][rand(3)]
     elsif menu_choice == "Play a game"
         return 
     elsif menu_choice == "Exit"
@@ -158,21 +160,23 @@ def focus_on_work
     sleep(3)
     system "clear"
     # Add sound?
-    puts $selected[:water]
+    puts $selected_personality[:water]
     sleep(5)
     system "clear"
+    love_heart()
     # Waits 10 mins then reminds the user to stretch
     sleep(3)
     system "clear"
     # Add sound?
-    puts $selected[:stretch]
+    puts $selected_personality[:stretch]
     sleep(5)
     system "clear"
+    love_heart()
     # Waits 10 mins then reminds the user to stretch
     sleep(3)
     system "clear"
     # Add sound?
-    puts $selected[:water]
+    puts $selected_personality[:water]
     sleep(5)
     system "clear"
     # Waits 20 mins then returns to main menu for a break
@@ -182,7 +186,7 @@ end
 
 def check_symptoms
     x = ""
-    puts $selected[:symptom][rand(3)]
+    puts $selected_personality[:symptom][rand(3)]
     puts "Answer: Yes/No"
     x =  gets.chomp  
     if x.downcase == "yes"
@@ -200,9 +204,9 @@ system "clear"
 
 # user_name()
 
-# personality_choices()
+personality_choices()
 
 # main_menu()
 
-focus_on_work()
+# focus_on_work()
 
