@@ -1,11 +1,7 @@
 #gems
-# require "pokemon.rb"
 require "tty-box"
 require "tty-prompt"
 
-# require 'pastel'
-# require 'colorize'
-# require 'colorized_string'
 
 # Games
 
@@ -22,23 +18,26 @@ $personality_hashes = {
         :frequently => "Hey bb, how frequently do you want me to remind you of this?",
         :water => "Drink some water to keep your cheeks plush and red!",
         :symptom => ["Hey cutie-pie, do you have a dry cough :*(", "Do you maybe have a lil bit fever?", "Muffin, remember a sore through may mean you have the Wuhan Sniffles"],
-        :stretch => "Gotta keep those armsies and legsies limber, keep that back limber for the pikachu dance routine we're doing after work!"
+        :stretch => "Gotta keep those armsies and legsies limber, keep that back limber for the pikachu dance routine we're doing after work!",
+        :work_done => "You're such a good worker! You've just finished an hour"
     },
     "stern" => {
-        :selected => "Good. Why would you want any of those other hussies",
+        :selected => "Good. Why would you want any of those other options",
         :flirt => ["Get back to work", "Please work harder", "Get covid-19 already"],
         :frequently => "The frequency of which I need to remind you should be HIGH, make it high, or else.",
         :water => "You better drink some water or I will make water flow from your eyes",
         :symptom => ["That sounded like a cough? Was that a cough?", "I see you sweating (◔_◔) - do you have a fever?", "Remember, a sore throat could mean you've got the WuFlu"],
-        :stretch => "Stretch now, do it now, not later, STRETCH NOW, or you're cut off."
+        :stretch => "Stretch now, do it now, not later, STRETCH NOW, or you're cut off.",
+        :work_done => "Finally you've finished, now start again for MAXIMUM EFFORT"
     },
     "relaxed" => {
         :selected => "Thanks! But it was totally cool if you chose one of the others",
         :flirt => ["Hey bb you make me want to stay in bed all day", "Those trackies are pretty sweet lookin' on you.", "I'm a fan of lying in bed next to you."],
         :frequently => "How often do you want me to remind you? Just don't make it too often.",
-        :water => "Hydrations cool, would reccomend, but it's your life.",
+        :water => "Hydration's cool, would recommend, but it's your life.",
         :symptom => ["Hey like, do you reckon you have a dry cough or whatever?", "Not that it really matters but, if you've got a fever, speak up", "Man, sometimes my throat is a bit sore. Is yours?"],
-        :stretch => "Hey like, maybe if you wanted to, like... Probably do some stretches hey."
+        :stretch => "Hey like, maybe if you wanted to, like... Probably do some stretches hey.",
+        :work_done => "I can't believe you just worked for a whole hour!"
     }
 }
 
@@ -103,7 +102,7 @@ def welcome_message()
     puts "Karona can also check your symptoms for COVID-19"
     sleep(5)
     system "clear"
-    puts "Karon can even play games with you! Like Pokemon and Kahoot!"
+    puts "Karon can even play games with you! Like Kahoot!"
     sleep(5)
     system "clear"
     puts "And best of all...."
@@ -141,7 +140,7 @@ personality_picker = prompt.select("Please pick a personality type for Karona", 
         $selected_personality = $personality_hashes["relaxed"]
     end
     puts $selected_personality[:selected]
-    main_menu()
+    sleep(3)
 end
 
 # Main Menu 
@@ -162,7 +161,7 @@ menu_choice = prompt.select("What would you like to do", ["Focus on work", "Chec
         kahoot_game()
         main_menu()
     elsif menu_choice == "Exit"
-        puts "clear"
+        system "clear"
         puts " Good-bye my lover, good-bye my friend"
         exit
     end
@@ -197,7 +196,6 @@ def focus_on_work
         end
         pause = !pause
         end
-    sleep(5)
     system "clear"
     love_heart()
     # Waits 10 mins then reminds the user to stretch
@@ -212,10 +210,19 @@ def focus_on_work
         end
         pause = !pause
         end
-    sleep(5)
     system "clear"
+    love_heart()
     # Waits 20 mins then returns to main menu for a break
     sleep(3)
+    system "clear"
+    puts $selected_personality[:work_done]
+    puts "Press the enter key to finish working"
+    while STDIN.getch != "\r"
+        if pause == true
+            puts "Press the 'enter' key to continue"
+        end
+        pause = !pause
+        end
     main_menu()      
 end
 
@@ -252,7 +259,7 @@ end
 
 system "clear"
 
-# welcome_message()
+welcome_message()
 
 user_name()
 
