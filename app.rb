@@ -1,4 +1,5 @@
 # Gems
+require "ruby_terminal_games"
 require "tty-prompt"
 require "timers"
 timers = Timers::Group.new
@@ -31,41 +32,70 @@ Flirting men for the el oh els. Pickup line generator/positive reinforcement ~~ 
     - Randomised sexy pickup line
 =end
 
-class Personality
-    attr_accessor :flirt, :prompt, :reply, :take_break
+# class Personality
+#     attr_accessor :flirt, :prompt, :take_break
 
-    def initialize(flirt, prompt, reply, take_break, symptom)
-        @flirt = flirt
-        @prompt = prompt
-        @reply = reply
-        @take_break = take_break
-    end
+#     def initialize(flirt, prompt, take_break)
+#         @flirt = flirt
+#         @prompt = prompt
+#         @take_break = take_break
+#     end
 
-    def flirt()
-       puts @flirt[rand(3)]
-    end
+#     def flirt()
+#        puts @flirt[rand(3)]
+#     end
 
-    def stretch()
-        # Run through routine
-        # Suggest stretch countdown timer start -> ask if they've done it y/n -> move to next stretch rinse repeat
-    end
+#     # def stretch()
+#     #     # Run through routine
+#     #     # Suggest stretch countdown timer start -> ask if they've done it y/n -> move to next stretch rinse repeat
+#     # end
+    
+#     def prompt(type)
+#         if type == "water"
+#             puts @prompt[:water]
+#         elsif type == "frequently"
+#             puts @prompt[:frequently]
+#         elsif type == "symptoms"
+#             puts @prompt[:symptom][rand(2)]
+#         end
+#     end
+
+#     def take_break()
+
+#     end
+
+# end
 
 
-end
 
-cutesy = Personality.new(
-        ["HEHE, your eyes are like boba tea!", "Daww hun, you're doing GWATE!", "UwU, you so cute, I wanna boop your shnoz"], 
-        {
-            :frequently => "Hey bb, how frequently do you want me to remind you of this?",
-            :water => "Drink some water to keep your cheeks plush and red!",
-            :symptoms => ["Hey cutie-pie, do you have a dry cough :*(", "Do you maybe have a lil bit fever?"]
-        },
-        
-    )
+# Personality format: flirt = 3 options, frequently = 1 option, water = 1 option, symptom = 2 options
 
-stern = Personality.new("Get back to work", "Please work harder", "Get covid-19 already")
+# cutesy = {
+#     :selected => "*bats eyelids* you're too kind to me",
+#     :flirt => ["HEHE, your eyes are like boba tea!", "Daww hun, you're doing GWATE!", "UwU, you so cute, I wanna boop your shnoz"],
+#     :frequently => "Hey bb, how frequently do you want me to remind you of this?",
+#     :water => "Drink some water to keep your cheeks plush and red!",
+#     :symptom => ["Hey cutie-pie, do you have a dry cough :*(", "Do you maybe have a lil bit fever?"]
+# }
 
-relaxed = Personality.new([],)
+# stern = {
+#     :selected => "Good. Why would you want any of those other hussies",
+#     :flirt => ["Get back to work", "Please work harder", "Get covid-19 already"],
+#     :frequently => nil,
+#     :water => "You better drink some water or I will make water flow from your eyes",
+#     :symptom => nil
+# }
 
-relaxed.flirt()
+
+# relaxed = {
+#     :selected => "Thanks! But it was totally cool if you chose one of the others",
+#     :flirt => ["Hey bb you make me want to stay in bed all day", "Those trackies are pretty sweet lookin' on you.", "I'm a fan of lying in bed next to you."],
+#     :frequently => "How often do you want me to remind you? Just don't make it too often",
+#     :water => "",
+#     :symptom => ["Hey like, do you reckon you have a dry cough or whatever?", "Not that it really matters but, if you've got a fever, speak up"]
+# }
+
+# ruby_terminal_games(play)
+
+print "\a"
 
